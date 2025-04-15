@@ -1,6 +1,7 @@
 services:
-  pihole:
+  pihole-unbound:
     container_name: pihole-unbound
+    network_mode: host
     build:
       context: ./src
     ports:
