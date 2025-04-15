@@ -2,4 +2,4 @@
 .env
 
 # Folders
-pihole/
+config/
