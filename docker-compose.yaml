@@ -17,9 +17,6 @@ services:
       PIHOLE_UID: ${HOST_UID}
       PIHOLE_GID: ${HOST_GID}
       TZ: ${TZ}
-      # Password to access the web interface.
-      FTLCONF_webserver_api_password: ${WEBPASSWORD}
-    # Volumes store your data between container upgrades
     volumes:
       # For persisting Pi-hole's databases and common configuration file
       - './pihole/etc-pihole:/etc/pihole'
@@ -27,6 +24,6 @@ services:
       # See https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
       # Required if you are using Pi-hole as your DHCP server, else not needed
       - NET_ADMIN
-      # Optional, if Pi-hole should get some more processing time
+      # Optional, uncomment if Pi-hole should get some more processing time
       # - SYS_NICE
     restart: unless-stopped
