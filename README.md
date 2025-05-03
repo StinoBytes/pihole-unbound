@@ -5,12 +5,12 @@ A single Docker container running both PiHole and Unbound.
 [![Docker Build Status](https://github.com/stinobytes/pihole-unbound/actions/workflows/dockerhub-build-push.yml/badge.svg)](https://github.com/stinobytes/pihole-unbound/actions/workflows/dockerhub-build-push.yml)
 
 This setup contains:
-- PiHole (using [official image](https://hub.docker.com/r/pihole/pihole)).
+- PiHole (using the [official image](https://hub.docker.com/r/pihole/pihole)).
 - Unbound DNS resolver, configured with DNS over TLS.
 
 > [!NOTE]
 > This setup uses host network mode, which means the container shares the network stack with the host.
-> This is optimal for DNS services but means the container has direct access to the host network.
+> This is optimal for DNS services but means the container has direct access to the host network. **It is highly recommended to run this behind a firewall**.
 
 
 ## Prerequisites
@@ -21,7 +21,7 @@ This setup contains:
 ## Setup
 
 > [!IMPORTANT]
-> Before starting the container, ensure no other services are using ports 53 (DNS), 80 (HTTP), and 443 (HTTPS) on your host machine.
+> Before starting, ensure no other services are using ports 53 (DNS), 80 (HTTP), and 443 (HTTPS) on your host machine.
 >
 > If you are installing this on Ubuntu (17.10+) or Fedora (33+), follow these steps first: https://github.com/pi-hole/docker-pi-hole/#installing-on-ubuntu-or-fedora
 >
@@ -104,11 +104,11 @@ docker exec pihole-unbound pihole setpassword "your_password"
 
 ### 3. Set PiHole as your DNS server
 
-There are multiple ways to do this, [it is recommended to follow the official PiHole FAQ](https://discourse.pi-hole.net/t/how-do-i-configure-my-devices-to-use-pi-hole-as-their-dns-server/245), it has all the different ways explained.
+There are multiple ways to do this, [it is recommended to follow the official PiHole FAQ](https://discourse.pi-hole.net/t/how-do-i-configure-my-devices-to-use-pi-hole-as-their-dns-server/245). It has all the different ways explained.
 
-### 4. Verify DNS Resolution
+### 4. Verify DNS resolution
 
-After setup, verify Pi-hole and Unbound are working correctly:
+After setup, verify Pi-hole and Unbound are working correctly (change `<server-ip-address>` to your server's IP address):
 ```bash
 # Test Pi-hole DNS resolution
 dig example.com @<server-ip-address>
@@ -121,7 +121,12 @@ docker exec pihole-unbound dig example.com @127.0.0.1 -p 5335
 
 By default, PiHole comes with [Steven Black's blocklist](https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts). This may or may not be enough to fit your needs.
 
-**(recommended)** In the PiHole admin interface (under `Lists`), you can add additional blocklists. I recommend this source: https://firebog.net/
+**(recommended)** In the PiHole admin interface (under `Lists`), you can add additional blocklists. I recommend this source: https://firebog.net/.
+
+> [!TIP]
+> You can add multiple lists at once, seperated by a space. If you are using firebog, you can copy and paste multple lines from each section.
+
+After adding new lists you should update Gravity. Go to `Tools` > `Update Gravity` and press the update button. Stay on that page until the update has finished.
 
 ### 6. Container updates
 
