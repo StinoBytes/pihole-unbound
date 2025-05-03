@@ -34,11 +34,6 @@ jobs:
             type=semver,pattern={{version}}
             type=sha,format=short
 
-      - name: Scan built image for vulnerabilities
-        uses: docker/build-push-action@v6
-        with:
-          scan: true
-
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
@@ -46,3 +41,4 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          scan: true
