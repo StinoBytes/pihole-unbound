@@ -34,6 +34,11 @@ jobs:
             type=semver,pattern={{version}}
             type=sha,format=short
 
+      - name: Scan built image for vulnerabilities
+        uses: docker/build-push-action@v6
+        with:
+          scan: true
+
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
