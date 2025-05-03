@@ -30,7 +30,7 @@ This setup contains:
 - 1.2. Next, add your timezone to the .env file. Change this to your own timezone.
 ([list of timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones))<br>*The single and double quotes should remain in the command.*
   ```bash
-  echo "TZ='Europe/Brussels'" >> .env
+  echo "TZ='UTC'" >> .env
   ```
 
 - 1.3. Create the necessary folder structure.
