@@ -4,16 +4,6 @@ services:
     network_mode: host
     build:
       context: ./src
-    ports:
-      # DNS Ports
-      - "53:53/tcp"
-      - "53:53/udp"
-      # Default HTTP Port
-      - "80:80/tcp"
-      # Default HTTPs Port. FTL will generate a self-signed certificate
-      - "443:443/tcp"
-      # Uncomment the below if using Pi-hole as your DHCP Server
-      #- "67:67/udp"
     environment:
       PIHOLE_UID: ${HOST_UID}
       PIHOLE_GID: ${HOST_GID}
@@ -22,10 +12,16 @@ services:
       FTLCONF_dns_upstreams: 127.0.0.1#5335
     volumes:
       - './config/etc-pihole:/etc/pihole'
+      - './config/etc-dnsmasq.d:/etc/dnsmasq.d'
     cap_add:
       # See https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
       # Required if you are using Pi-hole as your DHCP server, else not needed
       - NET_ADMIN
-      # Optional, uncomment if Pi-hole should get some more processing time
-      - SYS_NICE
+      - NET_BIND_SERVICE
+      - SYS_NICE # Optional, gives Pi-hole some more processing time
+    healthcheck:
+      test: ["CMD", "dig", "@127.0.0.1", "-p", "53", "pi.hole"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     restart: unless-stopped
