@@ -1,11 +1,11 @@
-# PiHole with Unbound in a single Docker container
+# Pi-hole with Unbound in a single Docker container
 
-A single Docker container running both PiHole and Unbound.
+A single Docker container running both Pi-hole and Unbound.
 
 [![Docker Build Status](https://github.com/stinobytes/pihole-unbound/actions/workflows/dockerhub-build-push.yml/badge.svg)](https://github.com/stinobytes/pihole-unbound/actions/workflows/dockerhub-build-push.yml)
 
 This setup contains:
-- PiHole (using the [official image](https://hub.docker.com/r/pihole/pihole)).
+- Pi-hole (using the [official image](https://hub.docker.com/r/pihole/pihole)).
 - Unbound DNS resolver, configured with DNS over TLS.
 
 > [!NOTE]
@@ -100,11 +100,11 @@ docker compose up -d
 docker exec pihole-unbound pihole setpassword "your_password"
 ```
 
-2.3. You can now log into the PiHole admin interface at `http://<server-ip-address>/admin`.<br>If you are on the same device as the container, you can use `http://localhost/admin`.
+2.3. You can now log into the Pi-hole admin interface at `http://<server-ip-address>/admin`.<br>If you are on the same device as the container, you can use `http://localhost/admin`.
 
-### 3. Set PiHole as your DNS server
+### 3. Set Pi-hole as your DNS server
 
-There are multiple ways to do this, [it is recommended to follow the official PiHole FAQ](https://discourse.pi-hole.net/t/how-do-i-configure-my-devices-to-use-pi-hole-as-their-dns-server/245). It has all the different ways explained.
+There are multiple ways to do this, [it is recommended to follow the official Pi-hole FAQ](https://discourse.pi-hole.net/t/how-do-i-configure-my-devices-to-use-pi-hole-as-their-dns-server/245). It has all the different ways explained.
 
 ### 4. Verify DNS resolution
 
@@ -119,9 +119,9 @@ docker exec pihole-unbound dig example.com @127.0.0.1 -p 5335
 
 ### 5. Add additional blocklists (optional but recommended)
 
-By default, PiHole comes with [Steven Black's blocklist](https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts). This may or may not be enough to fit your needs.
+By default, Pi-hole comes with [Steven Black's blocklist](https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts). This may or may not be enough to fit your needs.
 
-**(recommended)** In the PiHole admin interface (under `Lists`), you can add additional blocklists. I recommend this source: https://firebog.net/.
+**(recommended)** In the Pi-hole admin interface (under `Lists`), you can add additional blocklists. I recommend this source: https://firebog.net/.
 
 > [!TIP]
 > You can add multiple lists at once, seperated by a space. If you are using firebog, you can copy and paste multple lines from each section.

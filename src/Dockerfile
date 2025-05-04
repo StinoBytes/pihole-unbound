@@ -1,8 +1,8 @@
 FROM pihole/pihole:2025.04.0
 
 RUN apk update && \
-  apk add --no-cache \
-  unbound && \
+  apk upgrade xz-libs && \
+  apk add --no-cache unbound && \
   rm -rf /var/cache/apk/*
 
 COPY unbound.conf /etc/unbound/unbound.conf
