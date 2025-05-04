@@ -50,7 +50,7 @@ jobs:
           image-ref: ${{ secrets.DOCKERHUB_USERNAME }}/pihole-unbound:development
           format: "sarif"
           output: "trivy-results-dev.sarif"
-          severity: "CRITICAL,HIGH"
+          severity: "CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN"
           ignore-unfixed: true
           vuln-type: "os,library"
 
