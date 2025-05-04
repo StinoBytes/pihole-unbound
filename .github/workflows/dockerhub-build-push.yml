@@ -9,6 +9,10 @@ on:
 
 jobs:
   build-and-push:
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
     runs-on: ubuntu-latest
 
     steps:
@@ -51,3 +55,9 @@ jobs:
           severity: "CRITICAL,HIGH"
           ignore-unfixed: true
           vuln-type: "os,library"
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: "trivy-results.sarif"
