@@ -8,7 +8,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-push:
+  build-and-push-dev:
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
     runs-on: ubuntu-latest
 
     steps:
