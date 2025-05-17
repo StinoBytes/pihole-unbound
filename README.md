@@ -3,10 +3,11 @@
 A single Docker container running both Pi-hole and Unbound.
 
 [![Docker Build Status](https://github.com/stinobytes/pihole-unbound/actions/workflows/dockerhub-build-push.yml/badge.svg)](https://github.com/stinobytes/pihole-unbound/actions/workflows/dockerhub-build-push.yml)
+[![Docker Pulls](https://img.shields.io/docker/pulls/stinobytes/pihole-unbound.svg)](https://hub.docker.com/r/stinobytes/pihole-unbound)
 
 This setup contains:
 - Pi-hole (using the [official image](https://hub.docker.com/r/pihole/pihole)).
-- Unbound DNS resolver, configured with DNS over TLS.
+- Unbound DNS resolver, configured with DNS over TLS (DoT) using Cloudflare as upstream DNS server.
 
 > [!NOTE]
 > This setup uses host network mode, which means the container shares the network stack with the host.
