@@ -1,9 +1,6 @@
-FROM pihole/pihole:2025.04.0
+FROM pihole/pihole:2025.11.0
 
 RUN apk update && \
-  apk upgrade xz-libs && \
-  apk upgrade libxml2 && \
-  apk upgrade bind-tools && \
   apk add --no-cache unbound && \
   rm -rf /var/cache/apk/*
 
