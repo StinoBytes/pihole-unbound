@@ -7,7 +7,7 @@ A single Docker container running both Pi-hole and Unbound.
 
 This setup contains:
 - Pi-hole (using the [official image](https://hub.docker.com/r/pihole/pihole)).
-- Unbound DNS resolver, configured with DNS over TLS (DoT) using Cloudflare as upstream DNS server.
+- Unbound DNS resolver, configured with DNS over TLS (DoT) using Quad9 as upstream DNS server.
 
 > [!NOTE]
 > This setup uses host network mode, which means the container shares the network stack with the host.
