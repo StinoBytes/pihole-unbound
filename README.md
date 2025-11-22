@@ -23,13 +23,6 @@ This setup contains:
 
 > [!IMPORTANT]
 > Before starting, ensure no other services are using ports 53 (DNS), 80 (HTTP), and 443 (HTTPS) on your host machine.
->
-> If you are installing this on Ubuntu (17.10+) or Fedora (33+), follow these steps first: https://github.com/pi-hole/docker-pi-hole/#installing-on-ubuntu-or-fedora
->
-> TLDR:
-> 1. `sudo sed -r -i.orig 's/#?DNSStubListener=yes/DNSStubListener=no/g' /etc/systemd/resolved.conf`
-> 2. `sudo sh -c 'rm /etc/resolv.conf && ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf'`
-> 3. `systemctl restart systemd-resolved`
 
 ### 1. Prepare the environment
 
@@ -67,23 +60,14 @@ services:
     restart: unless-stopped
 ```
 
-1.3. Create the `.env` file:
+1.3. Create the `.env` file with the correct user id, group id and timezone:
 ```bash
 echo "HOST_UID=$(id -u)" > .env
 echo "HOST_GID=$(id -g)" >> .env
-```
-
-1.4. Add your timezone to the `.env` file:
-```bash
 echo "TZ='UTC'" >> .env
 ```
-*The single and double quotes should remain in the command.*
 
-> [!TIP]
-> You can find a list of timezones here (use the `TZ identifier` column):
-> [list of timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List).
-
-1.5. Create the required folder structure:
+1.4. Create the required folder structure:
 ```bash
 mkdir -p config/etc-pihole
 mkdir -p config/etc-dnsmasq.d

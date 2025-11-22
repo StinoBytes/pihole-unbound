@@ -1,6 +1,7 @@
 FROM pihole/pihole:2025.11.0
 
 RUN apk update && \
+  apk upgrade busybox jq && \
   apk add --no-cache unbound && \
   rm -rf /var/cache/apk/*
 
