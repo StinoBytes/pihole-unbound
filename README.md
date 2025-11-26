@@ -9,11 +9,6 @@ This setup contains:
 - Pi-hole (using the [official image](https://hub.docker.com/r/pihole/pihole)).
 - Unbound DNS resolver, configured with DNS over TLS (DoT) using Quad9 as upstream DNS server.
 
-> [!NOTE]
-> This setup uses host network mode, which means the container shares the network stack with the host.
-> This is optimal for DNS services but means the container has direct access to the host network. **It is highly recommended to run this behind a firewall**.
-
-
 ## Prerequisites
 
 - An operating system with Docker capabilities that runs 24/7 (recommended: Raspberry Pi 4/5 or Intel NUC with Ubuntu Server)
@@ -38,7 +33,6 @@ services:
   pihole-unbound:
     container_name: pihole-unbound
     image: stinobytes/pihole-unbound:latest
-    network_mode: host
     environment:
       PIHOLE_UID: ${HOST_UID}
       PIHOLE_GID: ${HOST_GID}
@@ -46,14 +40,18 @@ services:
       FTLCONF_dns_listeningMode: "all"
       FTLCONF_dns_upstreams: 127.0.0.1#5335
     volumes:
-      - './config/etc-pihole:/etc/pihole'
-      - './config/etc-dnsmasq.d:/etc/dnsmasq.d'
+      - ./config/pihole:/etc/pihole
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 80:80/tcp
+      - 443:443/tcp
     cap_add:
-      - NET_BIND_SERVICE
       - NET_ADMIN
+      - NET_BIND_SERVICE
       - SYS_NICE
     healthcheck:
-      test: ["CMD", "dig", "@127.0.0.1", "-p", "53", "pi.hole"]
+      test: [ "CMD", "dig", "@127.0.0.1", "-p", "53", "pi.hole" ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -69,8 +67,7 @@ echo "TZ='UTC'" >> .env
 
 1.4. Create the required folder structure:
 ```bash
-mkdir -p config/etc-pihole
-mkdir -p config/etc-dnsmasq.d
+mkdir -p config/pihole
 ```
 
 ### 2. Start the container
